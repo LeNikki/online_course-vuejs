@@ -1,27 +1,47 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+<script setup>
 import { ref } from 'vue'
-const close = ref(false)
+const closeBar = ref(false)
 </script>
 
 <template>
-  <div :class="['h-screen', 'p-5', 'bg-violet-200', close ? 'w-28' : 'w-52']">
-    <span class="flex flex-row items-center justify-center mr-3"
-      ><i class="fa-solid fa-bars text-xl hover:text-violet-900" @click="close = !close"></i>
-      <p v-if="!close" class="text-lg">Online Course</p></span
+  <div
+    :class="[
+      'border-r',
+      'shadow-lg',
+      'border-slate-300',
+      'h-screen',
+      'p-5',
+      closeBar ? 'w-28' : 'w-52'
+    ]"
+  >
+    <span class="w-full flex flex-row items-center justify-center mr-3 border-b border-slate-300"
+      ><img src="../assets/courseline.png" class="w-10 mr-3" @click="closeBar = !closeBar" />
+      <p v-if="!closeBar" class="text-lg font-semibold">WebNotes</p></span
     >
-    <nav class="w-52 h-full flex flex-col justify-start">
-      <RouterLink to="/" class="w-44 p-5 text-lg hover:text-violet-900 hover:font-bold"
-        ><i class="fa-solid fa-house" v-if="close"></i>
+    <nav :class="[closeBar ? 'w-28' : 'w-52', 'h-full', 'flex', 'flex-col', 'justify-start']">
+      <RouterLink
+        to="/"
+        class="w-44 p-5 text-sm font-semibold hover:text-fuchsia-500 hover:font-bold"
+        ><i class="fa-solid fa-house" v-if="closeBar"></i>
         <p v-else>Home</p></RouterLink
       >
-      <RouterLink to="/about" class="w-44 p-5 text-lg hover:text-violet-900 hover:font-bold"
-        ><i class="fa-solid fa-address-card" v-if="close"></i>
-        <p v-else>About</p></RouterLink
+      <RouterLink
+        to="/writenotes"
+        class="w-44 p-5 text-sm font-semibold hover:text-fuchsia-500 hover:font-bold"
+        ><i class="fa-solid fa-pen" v-if="closeBar"></i>
+        <p v-else>WriteNotes</p></RouterLink
       >
-      <RouterLink to="/test-compute" class="w-44 p-5 text-lg hover:text-violet-900 hover:font-bold"
-        ><i class="fa-solid fa-newspaper" v-if="close"></i>
+      <RouterLink
+        to="/test-compute"
+        class="w-44 p-5 text-sm font-semibold hover:text-fuchsia-500 hover:font-bold"
+        ><i class="fa-solid fa-newspaper" v-if="closeBar"></i>
         <p v-else>Form</p>
+      </RouterLink>
+      <RouterLink
+        to="/emits"
+        class="w-44 p-5 text-sm font-semibold hover:text-fuchsia-500 hover:font-bold"
+        ><i class="fa-solid fa-newspaper" v-if="closeBar"></i>
+        <p v-else>Emits</p>
       </RouterLink>
     </nav>
   </div>
