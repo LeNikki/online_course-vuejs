@@ -6,12 +6,19 @@ const router = useRoute()
 const dataID = router.query.currentDataID
 
 const currentData = notesDB.find((data) => data.id == dataID)
-console.log('CurrentData: ', currentData)
+
 const newData = reactive({
   id: currentData.id,
   title: currentData.title,
-  content: currentData.content
+  content: currentData.body
 })
+
+const updateData = () => {
+  const index = notesDB.findIndex((note) => note.id == currentData.id)
+  notesDB[index].title = newData.title
+  notesDB[index].body = newData.content
+  console.log('NotesDB[index] ', notesDB[index])
+}
 </script>
 
 <template>
@@ -32,7 +39,10 @@ const newData = reactive({
         v-model="newData.content"
       ></textarea>
       <div class="w-full flex justify-center">
-        <button class="border border-purple-500 p-3 w-44 hover:text-white hover:bg-purple-500">
+        <button
+          class="border border-purple-500 p-3 w-44 hover:text-white hover:bg-purple-500"
+          @click.prevent="updateData"
+        >
           Update this note
         </button>
       </div>
